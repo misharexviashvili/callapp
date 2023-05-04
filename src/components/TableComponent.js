@@ -22,7 +22,7 @@ const TableComponent = () => {
       }
     };
     getData();
-  }, []);
+  }, [dispatchData]);
   const deleteUserHandler = useCallback((id) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
   }, []);
