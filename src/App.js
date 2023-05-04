@@ -1,10 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TableComponent from "./components/TableComponent";
 
 function App() {
-  return (
-    <h1>HI</h1>
-  );
+  return <TableComponent/>;
 }
 
 export default App;
