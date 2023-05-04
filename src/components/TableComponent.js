@@ -1,57 +1,28 @@
 import { Space, Table } from "antd";
-import { useState, useCallback } from "react";
+import axios from "axios";
+import { useState, useCallback, useEffect } from "react";
+import useStore from "../zustand/zustand";
 const { Column } = Table;
 
-// const data = [
-//   {
-//     id: 1,
-//     name: "Huffman Butler",
-//     email: "huffmanbutler@gology.com",
-//     gender: "male",
-//     address: {
-//       street: "Clermont Avenue",
-//       city: "Los Angeles",
-//     },
-//     phone: "+1 (895) 510-asdasdasd",
-//   },
-//   {
-//     id: 11,
-//     name: "Cassandra Nguyen",
-//     email: "cassandranguyen@gology.com",
-//     gender: "female",
-//     address: {
-//       street: "Hamilton Avenue",
-//       city: "Chicago",
-//     },
-//     phone: "+1 (946) 426-2243",
-//   },
-// ];
 const TableComponent = () => {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      name: "Huffman Butler",
-      email: "huffmanbutler@gology.com",
-      gender: "male",
-      address: {
-        street: "Clermont Avenue",
-        city: "Los Angeles",
-      },
-      phone: "+1 (895) 510-asdasdasd",
-    },
-    {
-      id: 2,
-      name: "Cassandra Nguyen",
-      email: "cassandranguyen@gology.com",
-      gender: "female",
-      address: {
-        street: "Hamilton Avenue",
-        city: "Chicago",
-      },
-      phone: "+1 (946) 426-2243",
-    },
-  ]);
+  const [data, setData] = useState();
+  const dispatchData = useStore((state) => state.saveData);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const fetchedData = await axios.get("http://127.0.0.1:5000/api/data");
+        console.log(fetchedData);
+        setData(fetchedData.data);
+        // Saves data in Zustand store (Callapp requirement✔️)
+        dispatchData(fetchedData.data);
+      } catch (err) {
+        console.log(err);
+        alert("Something went wrong, please try again later");
+      }
+    };
+    getData();
+  }, [dispatchData]);
   const deleteUserHandler = useCallback((id) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
   }, []);
@@ -67,7 +38,7 @@ const TableComponent = () => {
         key="address"
         render={(address) => (
           <p>
-            {address.street}, {address.city}
+            {address?.street}, {address?.city}
           </p>
         )}
       />
