@@ -7,6 +7,10 @@ const useStore = create((set) => ({
       console.log(data);
       return { users: [...state.users, data] };
     }),
+//   deleteUser: (id) =>
+//     set((state) => {
+//       state.users.filter((item) => item.id !== parseInt(id));
+//     }),
 }));
 
 export default useStore;

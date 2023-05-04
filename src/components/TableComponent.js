@@ -9,6 +9,10 @@ const { Column } = Table;
 const TableComponent = () => {
   const [data, setData] = useState();
   const dispatchData = useStore((state) => state.saveData);
+  const deleteUserHandler = useCallback((id) => {
+    setData((prevData) => prevData.filter((item) => item.id !== id));
+    axios.delete(`http://127.0.0.1:5000/api/data/${id}`);
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -25,9 +29,7 @@ const TableComponent = () => {
     };
     getData();
   }, [dispatchData]);
-  const deleteUserHandler = useCallback((id) => {
-    setData((prevData) => prevData.filter((item) => item.id !== id));
-  }, []);
+
   return (
     <Table dataSource={data} pagination={false} rowKey={(item) => item.id}>
       <Column title="Id" dataIndex="id" key="id" />
@@ -50,7 +52,10 @@ const TableComponent = () => {
         key="action"
         render={(item) => (
           <Space size="middle">
-            <button className="deleteBtn" onClick={() => deleteUserHandler(item.id)}>
+            <button
+              className="deleteBtn"
+              onClick={() => deleteUserHandler(item.id)}
+            >
               <IoTrashOutline size={18} color="red" />
             </button>
           </Space>
