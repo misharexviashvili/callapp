@@ -2,6 +2,8 @@ import { Space, Table } from "antd";
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import useStore from "../zustand/zustand";
+import { IoTrashOutline } from "react-icons/io5";
+import "./TableComponent.css";
 const { Column } = Table;
 
 const TableComponent = () => {
@@ -48,7 +50,9 @@ const TableComponent = () => {
         key="action"
         render={(item) => (
           <Space size="middle">
-            <button onClick={() => deleteUserHandler(item.id)}>Delete</button>
+            <button className="deleteBtn" onClick={() => deleteUserHandler(item.id)}>
+              <IoTrashOutline size={18} color="red" />
+            </button>
           </Space>
         )}
       />
