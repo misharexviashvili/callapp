@@ -1,3 +1,13 @@
+.mainDiv{
+  position: relative;
+}
+.addBtn{
+  display: flex;
+  justify-content: center;
+  margin: 10px auto 10px;
+  width: 200px;
+ padding: 5px 25px;
+}
 .deleteBtn {
   display: block;
   padding: 10px;
