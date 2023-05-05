@@ -24,9 +24,9 @@ const HomeScreen = () => {
   const hideModalHandler = () => {
      setShowModal(false);
   };
-  const submitInputs = () => {
-    console.log("Inputs submitted");
-  };
+  // const submitInputs = () => {
+  //   console.log("Inputs submitted");
+  // };
   useEffect(() => {
     const getData = async () => {
       try {
@@ -51,7 +51,7 @@ const HomeScreen = () => {
       <Modal
         shown={showModal}
         hideModal={hideModalHandler}
-        onSubmit={submitInputs}
+        // onSubmit={submitInputs}
       />
       <TableComponent deleteUser={deleteUserHandler} data={data} />
     </div>
