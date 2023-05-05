@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import useStore from "../zustand/zustand";
 import TableComponent from "./TableComponent";
-import "./TableComponent.css";
+import "./HomeScreen.css";
 import Modal from "./Modal";
 
 const HomeScreen = () => {
