@@ -1,8 +1,8 @@
 import "./App.css";
-import TableComponent from "./components/TableComponent";
+import HomeScreen from "./components/HomeScreen";
 
 function App() {
-  return <TableComponent/>;
+  return <HomeScreen/>;
 }
 
 export default App;
