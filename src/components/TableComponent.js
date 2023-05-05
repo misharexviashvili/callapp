@@ -9,9 +9,15 @@ const { Column } = Table;
 const TableComponent = () => {
   const [data, setData] = useState();
   const dispatchData = useStore((state) => state.saveData);
-  const deleteUserHandler = useCallback((id) => {
-    setData((prevData) => prevData.filter((item) => item.id !== id));
-    axios.delete(`http://127.0.0.1:5000/api/data/${id}`);
+  const deleteUserHandler = useCallback( async(id) => {
+    try {
+     await axios.delete(`http://127.0.0.1:5000/api/data/${id}`);
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+      
+    } catch (error) {
+      console.log(error)
+      alert('Something went wrong, please reload the page')
+    }
   }, []);
 
   useEffect(() => {
