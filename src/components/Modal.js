@@ -1,7 +1,7 @@
 import "./Modal.css";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import ErrorComponent from "./ErrorComponent";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
@@ -21,26 +21,29 @@ const Modal = ({ shown, hideModal }) => {
     >
       {({ handleChange, handleSubmit, errors }) => (
         <div className="modal">
-          <h1>THIS IS MODAL</h1>
+          <h1 className="modalHeader">Please, Fill Out Form To Add User</h1>
           <input placeholder="Insert name" onChange={handleChange("name")} />
-          {errors.name ? <p>{errors.name}</p> : null}
+
+          <ErrorComponent>{errors?.name}</ErrorComponent>
           <input placeholder="Insert email" onChange={handleChange("email")} />
-          {errors.email ? <p>{errors.email}</p> : null}
+          <ErrorComponent>{errors?.email}</ErrorComponent>
           {/* Gender should be select type and should go here */}
           <input
             placeholder="Insert address"
             onChange={handleChange("address")}
           />
-          {errors.address ? <p>{errors.address}</p> : null}
+          <ErrorComponent>{errors?.address}</ErrorComponent>
           <input
             placeholder="Insert phone number"
             onChange={handleChange("phoneNumber")}
           />
-          {errors.phoneNumber ? <p>{errors.phoneNumber}</p> : null}
-          <button type="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-          <button onClick={hideModal}>Cancel</button>
+          <ErrorComponent>{errors?.phoneNumber}</ErrorComponent>
+          <div>
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+            <button onClick={hideModal}>Cancel</button>
+          </div>
         </div>
       )}
     </Formik>
