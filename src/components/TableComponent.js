@@ -16,9 +16,14 @@ const TableComponent = ({ data, deleteUser }) => {
   };
   return (
     <div>
-      <button className="addBtn" onClick={openModalHandler}>
-        Press here to add user
-      </button>
+      <div className="btnContainer">
+        <button className="addBtn" onClick={openModalHandler}>
+          Press here to add user
+        </button>
+        <button className="addBtn">
+          <a href="/piechart">Show pie chart</a>
+        </button>
+      </div>
       <Modal shown={showModal} hideModal={hideModalHandler} />
       <Table
         dataSource={data}
