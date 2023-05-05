@@ -21,9 +21,8 @@ const HomeScreen = () => {
   const openModalHandler = () => {
     setShowModal(true);
   };
-  const hideModalHandler = (event) => {
-    event.stopPropagation();
-    setShowModal(false);
+  const hideModalHandler = () => {
+     setShowModal(false);
   };
   const submitInputs = () => {
     console.log("Inputs submitted");
