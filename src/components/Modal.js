@@ -2,12 +2,14 @@ import "./Modal.css";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import ErrorComponent from "./ErrorComponent";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   gender: Yup.string().required().label("Gender"),
   email: Yup.string().required().email().label("Email"),
-  address: Yup.string().required().label("Address"),
+  street: Yup.string().label("Street"),
+  city: Yup.string().label("City"),
   phoneNumber: Yup.string()
     .required()
     .min(5, "Phone number must be at list 5 digits long")
@@ -18,13 +20,28 @@ const Modal = ({ shown, hideModal }) => {
   return shown ? (
     <Formik
       initialValues={{
-        email: "",
         name: "",
-        address: "",
-        phoneNumber: "",
+        email: "",
         gender: "",
+        street: "",
+        city: "",
+        phoneNumber: "",
       }}
-      onSubmit={(values, { reseAll }) => console.log(values)}
+      onSubmit={(values) => {
+        console.log(values);
+        axios.post("http://127.0.0.1:5000/api/data", {
+          id: Date.now(),
+          name: values.name,
+          email: values.email,
+          gender: values.gender,
+          address: {
+            street: values.street,
+            city: values.city,
+          },
+          phone: values.phoneNumber,
+        });
+        hideModal();
+      }}
       validationSchema={validationSchema}
     >
       {({ handleChange, handleSubmit, errors, touched }) => (
@@ -45,17 +62,14 @@ const Modal = ({ shown, hideModal }) => {
             />
             <ErrorComponent>{touched.email && errors?.email}</ErrorComponent>
 
-            {/* <div className="dropDown">
-              <label htmlFor="gender">Gender : </label>
-              <select id="gender" name="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div> */}
-
             <div className="dropDown">
               <label htmlFor="gender">Gender : </label>
-              <Field as="select" id="gender" name="gender" className="selectable">
+              <Field
+                as="select"
+                id="gender"
+                name="gender"
+                className="selectable"
+              >
                 <option value="">Select gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -67,12 +81,18 @@ const Modal = ({ shown, hideModal }) => {
 
             <input
               className="input"
-              placeholder="Insert address"
-              onChange={handleChange("address")}
+              placeholder="Insert street"
+              onChange={handleChange("street")}
             />
-            <ErrorComponent>
-              {touched.address && errors?.address}
-            </ErrorComponent>
+            <ErrorComponent>{touched.street && errors?.street}</ErrorComponent>
+
+            <input
+              className="input"
+              placeholder="Insert city"
+              onChange={handleChange("city")}
+            />
+            <ErrorComponent>{touched.city && errors?.city}</ErrorComponent>
+
             <input
               className="input"
               placeholder="Insert phone number"

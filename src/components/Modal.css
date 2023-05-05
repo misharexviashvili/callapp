@@ -24,7 +24,7 @@
   transform: translateX(-50%) translateY(-50%);
   background-color: #97cf76;
   width: 500px;
-  height: 440px;
+  height: 500px;
   padding: 10px 20px;
   border-radius: 8px;
 }
@@ -55,7 +55,7 @@
 }
 .selectable{
   border-radius: 5px;
-  width: 100px;
+  width: 120px;
   height: 25px;
 }
 
@@ -63,6 +63,7 @@
   display: flex;
   width: 200px;
   justify-content: space-between;
+
 }
 
 .modalBtn {
