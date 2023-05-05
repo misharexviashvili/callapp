@@ -103,7 +103,7 @@ const Modal = ({ shown, hideModal }) => {
             </ErrorComponent>
             <div className="btnContainer">
               <button className="modalBtn" type="submit" onClick={handleSubmit}>
-                Submit
+                Add
               </button>
               <button className="modalBtn" onClick={hideModal}>
                 Cancel
