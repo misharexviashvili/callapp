@@ -47,7 +47,7 @@ const Modal = ({ shown, hideModal }) => {
       {({ handleChange, handleSubmit, errors, touched }) => (
         <div className="bluredBackground">
           <div className="modal">
-            <h1 className="modalHeader">Please, Fill Out Form To Add User</h1>
+            <h1 className="modalHeader">Please, fill out form</h1>
             <input
               className="input"
               placeholder="Insert name"

@@ -1,32 +1,45 @@
 import { Pie } from "@ant-design/plots";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PieChart = () => {
-  const data = [
-    {
-      type: "Data 1",
-      value: 27,
-    },
-    {
-      type: "Data 2",
-      value: 25,
-    },
-    {
-      type: "Data 3",
-      value: 18,
-    },
-    {
-      type: "Data 4",
-      value: 15,
-    },
-    {
-      type: "Data 5",
-      value: 10,
-    },
-    {
-      type: "Data 6",
-      value: 5,
-    },
-  ];
+  const [userData, setUserData] = useState();
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const fetchedData = await axios.get("http://127.0.0.1:5000/api/data");
+        // console.log(fetchedData);
+        setUserData(fetchedData.data);
+      } catch (err) {
+        console.log(err);
+        alert("Something went wrong, please try again later");
+      }
+    };
+    getData();
+  }, []);
+
+  // console.log(userData);
+
+  const cityCounts = [];
+  if (Array.isArray(userData)) {
+    for (const person of userData) {
+      const city = person?.address?.city || "Unknown";
+      const countEntry = {
+        type: city,
+        value: 1,
+      };
+
+      const existingEntry = cityCounts.find((entry) => entry.type === city);
+      if (existingEntry) {
+        existingEntry.value += 1;
+      } else {
+        cityCounts.push(countEntry);
+      }
+    }
+  }
+
+  // console.log(cityCounts);
+  const data = cityCounts;
   const config = {
     appendPadding: 10,
     data,
