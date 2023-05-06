@@ -4,7 +4,7 @@ const useStore = create((set) => ({
   users: [],
   saveData: (data) =>
     set((state) => {
-      console.log("Zustand 🐻",data);
+      // console.log("Zustand 🐻",data);
       return { users: [...state.users, data] };
     }),
 //   deleteUser: (id) =>

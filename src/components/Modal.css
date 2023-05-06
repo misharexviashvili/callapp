@@ -34,8 +34,8 @@
   font-size: 24px;
   color: #555;
   text-transform: uppercase;
-  margin-top: 25px;
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 36px;
 }
 
 .input {
@@ -86,4 +86,9 @@
 
 .modalBtn:hover {
   opacity: 0.8;
+}
+
+.inputAndError{
+  display: flex;
+  justify-content: space-between;
 }
