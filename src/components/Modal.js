@@ -8,8 +8,8 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   gender: Yup.string().required().label("Gender"),
   email: Yup.string().required().email().label("Email"),
-  street: Yup.string().label("Street"),
-  city: Yup.string().label("City"),
+  street: Yup.string().required().label("Street"),
+  city: Yup.string().required().label("City"),
   phoneNumber: Yup.string()
     .min(5, "Phone number must be at list 5 digits long")
     .label("Phone Number"),
