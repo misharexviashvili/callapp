@@ -3,6 +3,7 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import ErrorComponent from "./ErrorComponent";
 import axios from "axios";
+import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -27,20 +28,26 @@ const Modal = ({ shown, hideModal }) => {
         city: "",
         phoneNumber: "",
       }}
-      onSubmit={(values) => {
-        console.log(values);
-        axios.post("http://127.0.0.1:5000/api/data", {
-          id: Date.now(),
-          name: values.name,
-          email: values.email,
-          gender: values.gender,
-          address: {
-            street: values.street,
-            city: values.city,
-          },
-          phone: values.phoneNumber,
-        });
-        hideModal();
+      onSubmit={async (values) => {
+        // console.log(values);
+        try {
+          await axios.post("http://127.0.0.1:5000/api/data", {
+            id: Date.now(),
+            name: values.name,
+            email: values.email,
+            gender: values.gender,
+            address: {
+              street: values.street,
+              city: values.city,
+            },
+            phone: values.phoneNumber,
+          });
+          hideModal();
+          window.location.reload();
+        } catch (error) {
+          console.log(error);
+          alert("Something went wrong, please try again later");
+        }
       }}
       validationSchema={validationSchema}
     >
