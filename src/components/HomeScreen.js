@@ -22,7 +22,7 @@ const HomeScreen = () => {
     const getData = async () => {
       try {
         const fetchedData = await axios.get("http://127.0.0.1:5000/api/data");
-        console.log(fetchedData);
+        // console.log(fetchedData);
         setData(fetchedData.data);
         // Saves data in Zustand store (Callapp requirement✔️)
         dispatchData(fetchedData.data);

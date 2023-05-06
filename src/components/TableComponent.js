@@ -9,7 +9,7 @@ const TableComponent = ({ data, deleteUser }) => {
   const [showModal, setShowModal] = useState(false);
   const openModalHandler = () => {
     setShowModal(true);
-    console.log("MODAL OPENED");
+    // console.log("MODAL OPENED");
   };
   const hideModalHandler = () => {
     setShowModal(false);
@@ -33,7 +33,7 @@ const TableComponent = ({ data, deleteUser }) => {
           return {
             onDoubleClick: () => {
               openModalHandler();
-              console.log("Row clicked", record);
+              // console.log("Row clicked", record);
             },
           };
         }}
