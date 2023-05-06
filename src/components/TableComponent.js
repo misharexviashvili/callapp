@@ -5,10 +5,13 @@ import Modal from "./Modal";
 import "./TableComponent.css";
 
 const { Column } = Table;
+
 const TableComponent = ({ data, deleteUser }) => {
+  const [rowData, setRowData] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const openModalHandler = () => {
     setShowModal(true);
+
     // console.log("MODAL OPENED");
   };
   const hideModalHandler = () => {
@@ -17,14 +20,20 @@ const TableComponent = ({ data, deleteUser }) => {
   return (
     <div>
       <div className="btnContainer">
-        <button className="addBtn" onClick={openModalHandler}>
+        <button
+          className="addBtn"
+          onClick={() => {
+            openModalHandler();
+            setRowData(null);
+          }}
+        >
           Press here to add user
         </button>
         <button className="addBtn">
           <a href="/piechart">Show pie chart</a>
         </button>
       </div>
-      <Modal shown={showModal} hideModal={hideModalHandler} />
+      <Modal rowData={rowData} shown={showModal} hideModal={hideModalHandler} />
       <Table
         dataSource={data}
         pagination={false}
@@ -32,6 +41,7 @@ const TableComponent = ({ data, deleteUser }) => {
         onRow={(record) => {
           return {
             onDoubleClick: () => {
+              setRowData(record);
               openModalHandler();
               // console.log("Row clicked", record);
             },

@@ -3,7 +3,6 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import ErrorComponent from "./ErrorComponent";
 import axios from "axios";
-import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -12,12 +11,12 @@ const validationSchema = Yup.object().shape({
   street: Yup.string().label("Street"),
   city: Yup.string().label("City"),
   phoneNumber: Yup.string()
-    .required()
     .min(5, "Phone number must be at list 5 digits long")
     .label("Phone Number"),
 });
-// TODO: in submit i should add axios.post to update server, also i should update UI with newly added user
-const Modal = ({ shown, hideModal }) => {
+
+const Modal = ({ shown, hideModal, rowData }) => {
+  console.log(rowData);
   return shown ? (
     <Formik
       initialValues={{
@@ -29,24 +28,43 @@ const Modal = ({ shown, hideModal }) => {
         phoneNumber: "",
       }}
       onSubmit={async (values) => {
-        // console.log(values);
-        try {
-          await axios.post("http://127.0.0.1:5000/api/data", {
-            id: Date.now(),
-            name: values.name,
-            email: values.email,
-            gender: values.gender,
-            address: {
-              street: values.street,
-              city: values.city,
-            },
-            phone: values.phoneNumber,
-          });
-          hideModal();
-          window.location.reload();
-        } catch (error) {
-          console.log(error);
-          alert("Something went wrong, please try again later");
+        if (rowData) {
+          try {
+            await axios.patch(`http://127.0.0.1:5000/api/data/${rowData.id}`, {
+              name: values.name,
+              email: values.email,
+              gender: values.gender,
+              address: {
+                street: values.street,
+                city: values.city,
+              },
+              phone: values.phoneNumber,
+            });
+            hideModal();
+            window.location.reload();
+          } catch (error) {
+            console.log(error);
+            alert("Something went wrong, please try again later");
+          }
+        } else {
+          try {
+            await axios.post("http://127.0.0.1:5000/api/data", {
+              id: Date.now(),
+              name: values.name,
+              email: values.email,
+              gender: values.gender,
+              address: {
+                street: values.street,
+                city: values.city,
+              },
+              phone: values.phoneNumber,
+            });
+            hideModal();
+            window.location.reload();
+          } catch (error) {
+            console.log(error);
+            alert("Something went wrong, please try again later");
+          }
         }
       }}
       validationSchema={validationSchema}
