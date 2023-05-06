@@ -3,7 +3,6 @@ import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import ErrorComponent from "./ErrorComponent";
 import axios from "axios";
-import { useState } from "react";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -12,7 +11,6 @@ const validationSchema = Yup.object().shape({
   street: Yup.string().label("Street"),
   city: Yup.string().label("City"),
   phoneNumber: Yup.string()
-    .required()
     .min(5, "Phone number must be at list 5 digits long")
     .label("Phone Number"),
 });
