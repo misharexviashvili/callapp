@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Modal = ({ shown, hideModal, rowData }) => {
-  console.log(rowData);
+  // console.log(rowData);
   return shown ? (
     <Formik
       initialValues={{
@@ -136,7 +136,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
             </ErrorComponent>
             <div className="btnContainer">
               <button className="modalBtn" type="submit" onClick={handleSubmit}>
-                {rowData ? "Update" : `Add`}
+                {rowData ? "Update" : "Add"}
               </button>
               <button className="modalBtn" onClick={hideModal}>
                 Cancel
