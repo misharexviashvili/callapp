@@ -72,7 +72,9 @@ const Modal = ({ shown, hideModal, rowData }) => {
       {({ handleChange, handleSubmit, errors, touched }) => (
         <div className="bluredBackground">
           <div className="modal">
-            <h1 className="modalHeader">Please, fill out form</h1>
+            <h1 className="modalHeader">
+              {rowData ? "Edit user" : `Please, fill out form`}
+            </h1>
             <input
               className="input"
               placeholder="Insert name"
@@ -128,7 +130,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
             </ErrorComponent>
             <div className="btnContainer">
               <button className="modalBtn" type="submit" onClick={handleSubmit}>
-                Add
+                {rowData ? "Update" : `Add`}
               </button>
               <button className="modalBtn" onClick={hideModal}>
                 Cancel
