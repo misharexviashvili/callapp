@@ -20,12 +20,12 @@ const Modal = ({ shown, hideModal, rowData }) => {
   return shown ? (
     <Formik
       initialValues={{
-        name: "",
-        email: "",
-        gender: "",
-        street: "",
-        city: "",
-        phoneNumber: "",
+        name: rowData ? rowData.name : "",
+        email: rowData ? rowData.email : "",
+        gender: rowData ? rowData.gender : "",
+        street: rowData ? rowData.address.street : "",
+        city: rowData ? rowData.address.city : "",
+        phoneNumber: rowData ? rowData.phone : "",
       }}
       onSubmit={async (values) => {
         if (rowData) {
@@ -69,14 +69,17 @@ const Modal = ({ shown, hideModal, rowData }) => {
       }}
       validationSchema={validationSchema}
     >
-      {({ handleChange, handleSubmit, errors, touched }) => (
+      {({ values, handleChange, handleSubmit, errors, touched }) => (
         <div className="bluredBackground">
           <div className="modal">
-            <h1 className="modalHeader">Please, fill out form</h1>
+            <h1 className="modalHeader">
+              {rowData ? "Edit user" : `Please, fill out form`}
+            </h1>
             <input
               className="input"
               placeholder="Insert name"
               onChange={handleChange("name")}
+              value={values.name}
             />
 
             <ErrorComponent>{touched.name && errors?.name}</ErrorComponent>
@@ -84,6 +87,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
               className="input"
               placeholder="Insert email"
               onChange={handleChange("email")}
+              value={values.email}
             />
             <ErrorComponent>{touched.email && errors?.email}</ErrorComponent>
 
@@ -94,6 +98,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
                 id="gender"
                 name="gender"
                 className="selectable"
+                value={values.gender}
               >
                 <option value="">Select gender</option>
                 <option value="male">Male</option>
@@ -108,6 +113,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
               className="input"
               placeholder="Insert street"
               onChange={handleChange("street")}
+              value={values.street}
             />
             <ErrorComponent>{touched.street && errors?.street}</ErrorComponent>
 
@@ -115,6 +121,7 @@ const Modal = ({ shown, hideModal, rowData }) => {
               className="input"
               placeholder="Insert city"
               onChange={handleChange("city")}
+              value={values.city}
             />
             <ErrorComponent>{touched.city && errors?.city}</ErrorComponent>
 
@@ -122,13 +129,14 @@ const Modal = ({ shown, hideModal, rowData }) => {
               className="input"
               placeholder="Insert phone number"
               onChange={handleChange("phoneNumber")}
+              value={values.phoneNumber}
             />
             <ErrorComponent>
               {touched.phoneNumber && errors?.phoneNumber}
             </ErrorComponent>
             <div className="btnContainer">
               <button className="modalBtn" type="submit" onClick={handleSubmit}>
-                Add
+                {rowData ? "Update" : `Add`}
               </button>
               <button className="modalBtn" onClick={hideModal}>
                 Cancel
