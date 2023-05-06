@@ -6,15 +6,18 @@
   padding-bottom: 20px;
 }
 .addBtn {
-  /* display: flex; */
-  /* justify-content: center; */
+  display: flex;
+  justify-content: center;
   margin: 10px auto 10px;
   width: 200px;
-  padding: 5px 25px;
+  padding: 5px 0;
   background-color: #97cf76;
   border-radius: 8px;
   border: solid 1px #0fa6b9;
   color: #ffffff;
+}
+.addBtn:hover {
+  cursor: pointer;
 }
 .deleteBtn {
   /* display: block; */
@@ -34,4 +37,5 @@ a:hover,
 a:active {
   color: inherit;
   text-decoration: none;
+  width: 100%;
 }
